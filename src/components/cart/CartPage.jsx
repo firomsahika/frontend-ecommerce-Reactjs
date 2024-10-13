@@ -5,7 +5,7 @@ import CartSummary from "./CartSummary"
 import api from "../../api"
 
 
-const CartPage = () =>{
+const CartPage = ({setNumCartItems}) =>{
    const [cartItems, setCartItems] = useState([])
    const [cartTotal, setCartTotal] = useState(0.00)
    const tax = 4
@@ -38,7 +38,14 @@ const CartPage = () =>{
            <div className="flex gap-20  items-start justify-center">
            <div className="flex flex-col gap-4">
             {
-              cartItems.map(item => <CartItem key={item.id} item={item}/>)
+              cartItems.map(item => <CartItem key={item.id} 
+              item={item}
+              setCartTotal={setCartTotal} 
+              cartItems={cartItems}
+              setNumCartItems={setNumCartItems}
+              setCartItems={setCartItems}
+             
+              />)
             }
        
           </div>

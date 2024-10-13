@@ -1,24 +1,52 @@
 import {BASE_URL} from "../../api"
 import {useState} from "react"
 import api from "../../api"
+import {toast} from 'react-toastify'
 
 
-const CartItem = ({ item }) => {
+              
+const CartItem = ({ item, setCartTotal,setCartItems, cartItems, setNumCartItems }) => {
 
    const [quantity, setQuantity] = useState(item.quantity)
+   const [loading, setLoading] = useState(false)
 
-   const itemData = {
-     item_id:item.id,
-     quantity:quantity
-   }
+   const itemData = { item_id:item.id, quantity:quantity }
+   const itemID = {item_id:item.id}
+
+   function deleteCartItem(){
+    const confirmDelete = window.confirm("Are you want to delete this cart item?")
+    if (confirmDelete){
+      api.post("delete_item", itemID)
+      .then (res =>{
+        console.log(res.data)
+        setCartItems(cartItems.filter(cartitem => cartitem.id !== item.id))
+      })
+      .catch(err =>{
+        console.log(err.message)
+      })
+     }
+    }
+   
 
    function updateCartItem(){
+    setLoading(true)
      api.patch("update_quantity/", itemData)
      .then(res =>{
       console.log(res.data)
+      setLoading(false)
+      toast.success("Cart Item Updated Successfully!!")
+      setCartTotal(cartItems.map((cartitem) => cartitem.id===item.id ? res.data.data : cartitem)
+    .reduce((acc, curr) => acc+curr.total, 0))
+
+    setNumCartItems(cartItems.map((cartitem) => cartitem.id===item.id ? res.data.data : cartitem)
+    .reduce((acc, curr)=> acc+curr.quantity, 0) )
      })
+
+     
+
      .catch(err =>{
       console.log(err.message)
+      setLoading(false)
      })
    }
 
@@ -50,8 +78,9 @@ const CartItem = ({ item }) => {
   
                 <button className="bg-blue-600 px-4 py-2 rounded-md text-gray-200"
                 onClick={updateCartItem}
-                >UpdateQuantity</button>
-                <button className="bg-red-500 px-4 rounded-md text-black py-2">Remove</button>
+                disabled={loading}
+                >{loading ? "Updating" : "Update"}</button>
+                <button className="bg-red-500 px-4 rounded-md text-black py-2" onClick={deleteCartItem}>Remove</button>
               </div>
             </div>
     

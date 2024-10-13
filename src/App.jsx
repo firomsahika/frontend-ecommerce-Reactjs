@@ -34,7 +34,7 @@ const App = () =>{
           <Route path="/" element={<MainLayout numCartItems={numCartItems}/>}>
             <Route index element={<HomePage />}></Route>
             <Route path="products/:slug" element={<ProductPage setNumCartItems={setNumCartItems}/>}></Route>
-            <Route path="cart" element={<CartPage />}></Route >
+            <Route path="cart" element={<CartPage setNumCartItems={setNumCartItems}/>}></Route >
             <Route path="*" element={<NotFoundPage />}></Route>
           </Route >
         </Routes>
