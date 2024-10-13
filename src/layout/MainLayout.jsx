@@ -5,7 +5,7 @@ import {Outlet} from 'react-router-dom'
 const MainLayout = ({numCartItems}) =>{
     return(
         <main className="flex flex-col min-h-screen">
-          <NavBar numCarItems={numCartItems}/>
+          <NavBar numCartItems={numCartItems}/>
          <div className="flex-grow">
          <Outlet />
          </div>

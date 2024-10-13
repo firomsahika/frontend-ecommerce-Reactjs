@@ -1,8 +1,11 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import MainLayout from "./layout/MainLayout"
 import HomePage from "./components/home/HomePage"
 import NotFoundPage from "./components/ui/NotFoundPage"
 import ProductPage from "./components/product/ProductPage"
+import CartPage from "./components/cart/CartPage"
 import {useState,useEffect} from 'react'
 import api from "./api"
 
@@ -30,9 +33,10 @@ const App = () =>{
         <Routes>
           <Route path="/" element={<MainLayout numCartItems={numCartItems}/>}>
             <Route index element={<HomePage />}></Route>
-            <Route path="products/:slug" element={<ProductPage />}></Route>
+            <Route path="products/:slug" element={<ProductPage setNumCartItems={setNumCartItems}/>}></Route>
+            <Route path="cart" element={<CartPage />}></Route >
             <Route path="*" element={<NotFoundPage />}></Route>
-          </Route>
+          </Route >
         </Routes>
      </BrowserRouter>
   )

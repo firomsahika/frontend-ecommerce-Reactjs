@@ -8,7 +8,7 @@ import ProductPagePlaceHolder from "./ProductPagePlaceHolder"
 import api from "../../api"
 
 
-const ProductPage = () =>{
+const ProductPage = ({setNumCartItems}) =>{
     const {slug} = useParams();
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
@@ -39,6 +39,7 @@ const ProductPage = () =>{
         .then(res =>{
             console.log(res.data)
             setInCart(true)
+            setNumCartItems(curr => curr +1 )
         })
         .catch(err =>{
             console.log(err.message)
