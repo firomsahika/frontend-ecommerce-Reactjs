@@ -18,9 +18,18 @@ const CartItem = ({ item, setCartTotal,setCartItems, cartItems, setNumCartItems 
     if (confirmDelete){
       api.post("delete_item", itemID)
       .then (res =>{
+        toast.success("Deleted item Successfully!")
         console.log(res.data)
-        setCartItems(cartItems.filter(cartitem => cartitem.id !== item.id))
+
+        setCartItems(cartItems.filter(cartitem => cartitem.id != item.id))
+
+        setCartTotal(cartItems.filter((cartitem) => cartitem.id != item.id )
+        .reduce((acc, curr) => acc+curr.total, 0))
+
+      setNumCartItems(cartItems.filter((cartitem) => cartitem.id != item.id )
+      .reduce((acc, curr)=> acc+curr.quantity, 0) )
       })
+    
       .catch(err =>{
         console.log(err.message)
       })

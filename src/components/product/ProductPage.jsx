@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import {useEffect,useState} from 'react'
 import { BASE_URL } from "../../api"
-
+import {toast} from 'react-toastify'
 
 import RelatedProducts from "./RelatedProducts"
 import ProductPagePlaceHolder from "./ProductPagePlaceHolder"
@@ -13,7 +13,7 @@ const ProductPage = ({setNumCartItems}) =>{
     const [product, setProduct] = useState({})
     const [similarProducts, setSimilarProducts] = useState([])
     const [loading, setLoading] = useState(false)
-    const  [inCart, setInCart] = useState(false)    
+    const [inCart, setInCart] = useState(false)    
     const cart_code = localStorage.getItem("cart_code")
 
     useEffect(function(){
@@ -38,6 +38,7 @@ const ProductPage = ({setNumCartItems}) =>{
         api.post("add_item/", newItem)
         .then(res =>{
             console.log(res.data)
+            toast.success("Product added to cart!✅")
             setInCart(true)
             setNumCartItems(curr => curr +1 )
         })
