@@ -1,15 +1,14 @@
 import {FaCartShopping} from "react-icons/fa6"
 import { Link } from 'react-router-dom'
 import NavLink from "../../components/ui/NavLink" 
+import SearchInput from "../search/SearchInput"
 
 const NavBar = ({numCartItems}) =>{
     return(
-       <nav className="flex w-full h-16 bg-slate-700 text-white fixed items-center justify-between px-14">
-        <div>
-            <Link to="/">Shoppit</Link>
-            <button>
-                <span></span>
-            </button>
+       <nav className="flex z-40 w-full h-16 bg-slate-700 text-white fixed items-center justify-between px-14">
+        <div className="flex gap-5 items-center">
+            <Link to="/" className="text-2xl font-semibold text-yellow-400">Shoppit</Link>
+            <SearchInput />
         </div>
         <div className="flex items-center gap-4">
             <NavLink />
