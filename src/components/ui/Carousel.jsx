@@ -25,34 +25,29 @@ const Carousel = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto "> {/* Center the carousel */}
-      <Slider {...settings} className="rounded-md overflow-hidden"> {/* Add styling */}
+    <div className="flex  items-center justify-center max-w-md "> {/* Center the carousel */}
+      <Slider {...settings} className="rounded-md flex items-center justify-center p-10 overflow-hidden"> {/* Add styling */}
         <div>
-          <img src={first} alt="First" className="w-80 h-66 object-cover" /> {/* Ensure image fits */}
+          <img src={six} alt="First" className="w-96 h-66 flex items-center justify-center object-cover" /> {/* Ensure image fits */}
         </div>
         <div>
-          <img src={second} alt="Second" className="w-80 h-66 object-cover" />
+          <img src={eight} alt="Second" className="w-96 h-66 flex items-center justify-center object-cover" />
         </div>
         <div>
-          <img src={third} alt="Third" className="w-80 h-66 object-cover" />
+          <img src={third} alt="Third" className="w-96 h-66 flex items-center justify-center object-cover" />
+        </div>
+        
+        <div>
+          <img src={six} alt="Sixth" className="w-96 h-66 flex items-center justify-center object-cover" />
         </div>
         <div>
-          <img src={four} alt="Fourth" className="w-80 h-66 object-cover" />
+          <img src={seven} alt="Seventh" className="w-96 h-66 flex items-center justify-center object-cover" />
         </div>
         <div>
-          <img src={five} alt="Fifth" className="w-80 h-66 object-cover" />
+          <img src={eight} alt="Eighth" className="w-96 h-66 flex items-center justify-center object-cover" />
         </div>
         <div>
-          <img src={six} alt="Sixth" className="w-80 h-66 object-cover" />
-        </div>
-        <div>
-          <img src={seven} alt="Seventh" className="w-80 h-66 object-cover" />
-        </div>
-        <div>
-          <img src={eight} alt="Eighth" className="w-80 h-66 object-cover" />
-        </div>
-        <div>
-          <img src={nine} alt="Ninth" className="w-80 h-66 object-cover" />
+          <img src={nine} alt="Ninth" className="w-96 h-66 flex items-center justify-center object-cover" />
         </div>
       </Slider>
     </div>

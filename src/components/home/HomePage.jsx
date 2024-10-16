@@ -1,102 +1,92 @@
-import Header from "./Header"
-import CardContainer from "./CardContainer"
-import api from "../../api"
-import {useEffect, useState} from 'react'
-import PlaceHolderContainer from "../ui/PlaceHolderContainer"
-import {randomValue} from "../../GenerateCartCode"
+import Header from "./Header";
+import CardContainer from "./CardContainer";
+import api from "../../api";
+import { useEffect, useState } from 'react';
+import PlaceHolderContainer from "../ui/PlaceHolderContainer";
+import { randomValue } from "../../GenerateCartCode";
+import SideBar from "../ui/SideBar";
 
 
 const HomePage = () => {
-
   const categories = [
-    {
-      id: 1,
-      category: "Electronics"
-    },   
-    {
-      id: 2,
-      category: "clothings"
-    },
-    {
-      id: 3,
-      category: "Groceries"
-    }
-  ]
+    { id: 1, category: "Asus" },
+    { id: 2, category: "Dell" },
+    { id: 3, category: "Hp" },
+    { id: 4, category: "Macbook" },
+  ];
 
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedRam, setSelectedRam] = useState("")
 
-  // Fetch products based on selected category
-  useEffect(function () {
-    setLoading(true)
+  useEffect(() => {
+    setLoading(true);
+    const fetchProducts = async () => {
+      try {
+        const response = selectedCategory  === ""
+          ? await api.get("products")
+          : await api.get(`product_category/${selectedCategory}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (selectedCategory === "") {
-      // Fetch all products when no category is selected
-      api.get("products")
-        .then(res => {
-          console.log(res.data)
-          setProducts(res.data)
-          setLoading(false)
-        })
-        .catch(err => {
-          console.log(err.message)
-          setLoading(false)
-        })
-    } else {
-      // Fetch products by category
-      api.get(`product_category/${selectedCategory}`)
-        .then(res => {
-          console.log(res.data)
-          setProducts(res.data)
-          setLoading(false)
-        })
-        .catch(err => {
-          console.log(err.message)
-          setLoading(false)
-        })
-    }
-  }, [selectedCategory])
+    fetchProducts();
+  }, [selectedCategory]);
 
-  useEffect(function() {
+  useEffect(() => {
+    setLoading(true);
+    const fetchProducts = async () => {
+      try {
+        const response = selectedRam  === ""
+          ? await api.get("products")
+          : await api.get(`product_ram/${selectedRam}`);
+        setProducts(response.data);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [selectedRam]);
+
+  useEffect(() => {
     if (localStorage.getItem("cart_code") === null) {
-      localStorage.setItem("cart_code", randomValue)
+      localStorage.setItem("cart_code", randomValue);
     }
-  }, [])
+  }, []);
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category)
+    setSelectedCategory(category);
+  };
+
+  const handleRamChange = (label) =>{
+    setSelectedRam(label)
   }
 
   return (
     <>
       <Header />
-      
-      <div className="flex items-center justify-center gap-4 my-4">
-        <h4 className="text-2xl font-semibold">Categories :</h4>
-        {/* "All" Button to show all products */}
-        <button
-          onClick={() => setSelectedCategory("")}
-          className={`px-4 py-2 rounded-md ${selectedCategory === "" ? "bg-slate-700 text-white" : "border"}`}
-        >
-          All
-        </button>
-
-        {/* Category buttons */}
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => handleCategoryClick(cat.category)}
-            className={`px-4 py-2 rounded-md ${selectedCategory === cat.category ? "bg-slate-700 text-white" : " border"}`}
-          >
-            {cat.category}
-          </button>
-        ))}
+      <div className="flex items-start justify-center mx-10 gap-10 my-28">
+       
+       <SideBar
+          categories={categories}
+          handleCategoryClick={handleCategoryClick}
+          selectedCategory={selectedCategory}
+          handleRamChange={handleRamChange}
+          selectedRam={selectedRam}
+        />
+       
+        {loading ? <PlaceHolderContainer /> : <CardContainer products={products} />}
       </div>
-
-      {loading ? <PlaceHolderContainer /> : <CardContainer products={products} />}
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
