@@ -3,25 +3,13 @@ import {useEffect,useState} from "react"
 import CartItem from "./CartItem"
 import CartSummary from "./CartSummary"
 import api from "../../api"
+import useCartData from "../../hooks/useCartData"
 
 
 const CartPage = ({setNumCartItems}) =>{
-   const [cartItems, setCartItems] = useState([])
-   const [cartTotal, setCartTotal] = useState(0.00)
-   const tax = 4
-   const cart_code = localStorage.getItem("cart_code")
-   
-   useEffect(function(){
-    api.get(`get_cart?cart_code=${cart_code}`)
-    .then (res =>{
-      console.log(res.data)
-      setCartItems(res.data.items)
-      setCartTotal(res.data.sum_total)
-    })
-    .catch(err =>{
-      console.log(err.message)
-    })
-   },[])
+  
+  const {cartItems, setCartItems,cartTotal, setCartTotal, loading, tax} = useCartData()
+  
 
    if(cartItems.length <1 ){
        return (

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 
 const CartSummary = ({cartTotal, tax}) => {
@@ -25,9 +26,11 @@ const CartSummary = ({cartTotal, tax}) => {
         </div>
       </div>
       <div>
-        <button className="bg-slate-800 rounded-md px-4 py-2 w-full text-white text-sm text-center">
+       <Link to="/checkout">
+         <button className="bg-slate-800 rounded-md px-4 py-2 w-full text-white text-sm text-center">
           Proceed to Checkout
-        </button>
+         </button>
+       </Link>
       </div>
     </div>
   );

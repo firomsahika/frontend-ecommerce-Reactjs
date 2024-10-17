@@ -26,9 +26,12 @@ const Carousel = () => {
 
   return (
     <div className="flex  items-center justify-center max-w-md "> {/* Center the carousel */}
-      <Slider {...settings} className="rounded-md flex items-center justify-center p-10 overflow-hidden"> {/* Add styling */}
+      <Slider {...settings} className="rounded-md flex items-center justify-center p-10 overflow-hidden">
+
+         {/* Add styling */}
         <div>
-          <img src={six} alt="First" className="w-96 h-66 flex items-center justify-center object-cover" /> {/* Ensure image fits */}
+          <img src={six} alt="First" className="w-96 h-66 flex items-center justify-center object-cover" />
+          <h4 className='text-2xl bg-yellow-400 px-4 py-2'>Asus Zenbook</h4>
         </div>
         <div>
           <img src={eight} alt="Second" className="w-96 h-66 flex items-center justify-center object-cover" />

@@ -1,16 +1,19 @@
 import React from 'react'
+import { BASE_URL } from '@/api'
 
-const OrderItem = () => {
+const OrderItem = ({ cartItem }) => {
   return (
-    <div className='flex items-center justify-end'>
-      <div className='flex items-center justify-center'>
-        <img />
-        <div className='flex flex-col'>
-            <h6>Product name</h6>
-            <small>Quantity</small>
-        </div>
+    <div className='flex items-center justify-between gap-32'>
+      <img
+        src={`${BASE_URL}${cartItem.product.image}`}
+        alt='product-image'
+        className='w-20 h-20 object-cover rounded-md'
+      />
+      <div className='flex flex-col w-full'>
+        <h6 className='font-semibold'>{cartItem.product.name}</h6>
+        <small className='text-gray-500'>{`Quantity: ${cartItem.quantity}`}</small>
       </div>
-      <h6>$100.00</h6>
+      <h6 className='font-semibold'>{`$${cartItem.product.price}`}</h6>
     </div>
   )
 }
