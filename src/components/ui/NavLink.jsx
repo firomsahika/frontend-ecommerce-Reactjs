@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 
 const NavLink = () =>{
     return (
-        <ul className="flex gap-10 w-full text-yellow-400 font-semibold">
+        <ul className="flex   gap-10 w-full text-green-400 font-semibold">
             <li>
                 <a>Home</a>
             </li>

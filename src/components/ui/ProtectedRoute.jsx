@@ -1,11 +1,13 @@
+import { jwtDecode } from 'jwt-decode'
 import api from '../../api'
-import jwtDecode from 'jwt-decode' // No need to destructure
+// No need to destructure
 import React, { useState, useEffect } from 'react'
-import Spinner from "../ui/Spinner"
-import { Navigate } from 'react-router-dom'
+// import Spinner from "../ui/Spinner"
+import { Navigate, useLocation } from 'react-router-dom'
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(null)
+  const location = useLocation()
 
   useEffect(() => {
     auth().catch(() => setIsAuthorized(false))
@@ -46,13 +48,13 @@ const ProtectedRoute = ({ children }) => {
     }
   }
 
-  if (isAuthorized === null) {
-    return <Spinner />
-  }
+  // if (isAuthorized === null) {
+  //   return <Spinner />
+  // }
 
   return (
     <div>
-      {isAuthorized ? children : <Navigate to="/login" />}
+      {isAuthorized ? children : <Navigate to="/login" state={{location}} replace/>}
     </div>
   )
 }

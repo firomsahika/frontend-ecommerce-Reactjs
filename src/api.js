@@ -1,5 +1,5 @@
 import axios from "axios"
-import { error } from "console"
+
 import { jwtDecode } from "jwt-decode"
 
 export const BASE_URL = "http://127.0.0.1:8000"

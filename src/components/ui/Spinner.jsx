@@ -7,7 +7,7 @@ const override = {
   borderColor: "red",
 };
 
-function Spinner() {
+const Spinner= ()=> {
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
 
