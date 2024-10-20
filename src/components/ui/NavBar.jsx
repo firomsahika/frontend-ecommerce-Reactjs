@@ -5,7 +5,8 @@ import SearchInput from "../search/SearchInput"
 
 const NavBar = ({numCartItems}) =>{
     return(
-       <nav className="flex z-40 w-full  items-center  h-16 border bg-slate-800  fixed  justify-between px-14">
+       <nav className="flex z-40 w-full  items-center  h-16 border bg-white 
+        fixed  justify-between px-14">
         <div className="flex gap-5 items-center">
             <Link to="/" className="text-2xl font-semibold text-green-400">Shoppit</Link>
             <SearchInput />
