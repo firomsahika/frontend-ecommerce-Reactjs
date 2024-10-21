@@ -1,9 +1,13 @@
 // src/Login.js
 import api from '@/api';
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => { 
   
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [password, setPassword] = useState("")
   const [username, setUserName]= useState("")
   const [loading, setLoading] = useState(false)
@@ -22,8 +26,13 @@ const LoginPage = () => {
       localStorage.setItem("access", res.data.access)
       localStorage.setItem("refresh", res.data.refresh)
 
+      setUserName("")
+      setPassword("")
       setLoading(false)
       setError("")
+
+      const from = location.state.from.pathname || "/";
+      navigate(from, {replace:true})
     })
     .catch(err =>{
       console.log(err.message)

@@ -5,7 +5,7 @@ const HomeCard = ({product}) =>{
       return (
         <div className='w-full'>
             <Link to={`/products/${product.slug}`}>
-               <div className="flex w-full p-4 flex-col items-center justify-center border-2 border-green-400  rounded-xl ">
+               <div className="flex w-full  p-4 flex-col items-center justify-center border-2 border-green-400 hover:sca rounded-xl ">
                 <div className='w-full'>
                     <img src={`${BASE_URL}${product.image}`} alt="product-image"
                     className="w-full object-cover rounded-xl h-40"
