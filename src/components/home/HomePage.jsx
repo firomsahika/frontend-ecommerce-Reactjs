@@ -6,7 +6,6 @@ import PlaceHolderContainer from "../ui/PlaceHolderContainer";
 import { randomValue } from "../../GenerateCartCode";
 import SideBar from "../ui/SideBar";
 
-
 const HomePage = () => {
   const categories = [
     { id: 1, category: "Asus" },
@@ -18,15 +17,23 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedRam, setSelectedRam] = useState("")
+  const [selectedRam, setSelectedRam] = useState("");
+  const [selectedName, setSelectedName] = useState("");
 
   useEffect(() => {
     setLoading(true);
     const fetchProducts = async () => {
       try {
-        const response = selectedCategory  === ""
-          ? await api.get("products")
-          : await api.get(`product_category/${selectedCategory}`);
+        let response;
+        if (selectedName) {
+          response = await api.get(`search_product/${selectedName}`);
+        } else if (selectedCategory) {
+          response = await api.get(`product_category/${selectedCategory}`);
+        } else if (selectedRam) {
+          response = await api.get(`product_ram/${selectedRam}`);
+        } else {
+          response = await api.get("products");
+        }
         setProducts(response.data);
       } catch (error) {
         console.log(error.message);
@@ -36,54 +43,50 @@ const HomePage = () => {
     };
 
     fetchProducts();
-  }, [selectedCategory]);
+  }, [selectedCategory, selectedRam, selectedName]);
 
   useEffect(() => {
-    setLoading(true);
-    const fetchProducts = async () => {
-      try {
-        const response = selectedRam  === ""
-          ? await api.get("products")
-          : await api.get(`product_ram/${selectedRam}`);
-        setProducts(response.data);
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [selectedRam]);
-
-  useEffect(() => {
-    if (localStorage.getItem("cart_code") === null) {
-      localStorage.setItem("cart_code", randomValue);
+    if (!localStorage.getItem("cart_code")) {
+      localStorage.setItem("cart_code", randomValue());
     }
   }, []);
+
+  const handleSearchProduct = (name) => {
+    setSelectedName(name);
+  };
 
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
   };
 
-  const handleRamChange = (label) =>{
-    setSelectedRam(label)
-  }
+  const handleRamChange = (label) => {
+    setSelectedRam(label);
+  };
+
+  const resetFilters = () => {
+    setSelectedCategory("");
+    setSelectedRam("");
+    setSelectedName("");
+  };
 
   return (
     <>
-      <Header />
+      <Header 
+       handleSearchProduct={handleSearchProduct}
+       selectedName={selectedName}
+       products={products}
+      />
       <div className="flex items-start justify-center mx-10 gap-10 my-28">
-       
-       <SideBar
+        <SideBar
+          products={products}
           categories={categories}
           handleCategoryClick={handleCategoryClick}
           selectedCategory={selectedCategory}
           handleRamChange={handleRamChange}
           selectedRam={selectedRam}
+          resetFilters={resetFilters}
         />
-       
-        {loading ? <PlaceHolderContainer /> : <CardContainer products={products} />}
+        {loading ? <PlaceHolderContainer /> : <CardContainer resetFilters={resetFilters} products={products} />}
       </div>
     </>
   );

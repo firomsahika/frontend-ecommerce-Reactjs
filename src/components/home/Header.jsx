@@ -1,15 +1,23 @@
-import Carousel from "../ui/Carousel"
-import ComboBox from "../ui/Combobox"
+import SearchInput from "../search/SearchInput"
+// import Carousel from "../ui/Carousel"
+// import ComboBox from "../ui/Combobox"
 
 
-const Header = () =>{
+const Header = ({handleSearchProduct, products,selectedName}) =>{
     return (
-       <div className="flex mx-10 gap-x-60 items-center justify-center py-16">
-          <Carousel />
-          <div className="flex flex-col">
-          <ComboBox />
-         
-          </div>
+       <div className="w-full flex items-center justify-center bg-gray-100 ">
+        <div className="w-full py-20 flex flex-col items-center justify-center">
+        <h2 className="text-5xl font-semibold text-slate-800 pb-10">Welcome to <span className="text-green-400">Shoppit</span></h2>
+       
+          
+         <SearchInput 
+         products={products}
+         handleSearchProduct={handleSearchProduct}
+         selectedName={selectedName} 
+          />
+        
+       
+        </div>
        </div>
     )
 }

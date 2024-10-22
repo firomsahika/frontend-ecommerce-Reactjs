@@ -12,6 +12,8 @@ import OrderSummary from './components/checkout/OrderSummary';
 import CheckOutPage from './components/checkout/CheckOutPage';
 import LoginPage from './components/user/LoginPage';
 import ProtectedRoute from './components/ui/ProtectedRoute';
+import { AuthProvider } from './context/AuthContext';
+import UserProfilePage from './components/user/UserProfilePage';
 
 
 const App = () =>{
@@ -33,6 +35,7 @@ const App = () =>{
 
 
   return (
+    <AuthProvider>
      <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout numCartItems={numCartItems}/>}>
@@ -46,9 +49,13 @@ const App = () =>{
               </ProtectedRoute>
               }/>
             <Route path='login' element={<LoginPage />}/>
+            <Route path='profile' element={<UserProfilePage />} />
+
+            
           </Route >
         </Routes>
      </BrowserRouter>
+     </AuthProvider>
   )
 }
 

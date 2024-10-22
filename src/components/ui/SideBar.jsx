@@ -1,4 +1,4 @@
-const Sidebar = ({ categories,handleRamChange, selectedRam, handleCategoryClick, selectedCategory }) => {
+const Sidebar = ({ categories,handleRamChange,resetFilters, selectedRam, handleCategoryClick, selectedCategory }) => {
     const ramOptions = [
       { id: 'ram-8gb', label: '8GB' },
       { id: 'ram-16gb', label: '16GB' },
@@ -6,7 +6,8 @@ const Sidebar = ({ categories,handleRamChange, selectedRam, handleCategoryClick,
     ];
   
     return (
-      <div className="w-1/4  mt-28 p-4 border h-screen  bg-white">
+      <div className="w-1/4 flex flex-col items-start justify-start mt-16 p-4 border h-screen  bg-white">
+        
         <h4 className="text-xl font-semibold mb-4">Filter by:</h4>
   
         {/* RAM Section */}

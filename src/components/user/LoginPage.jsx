@@ -1,17 +1,20 @@
 // src/Login.js
 import api from '@/api';
-import React, { useState } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => { 
   
+  const {setIsAuthenticated, get_username} = useContext(AuthContext) 
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("")
   const [username, setUserName]= useState("")
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
+  // const [error, setError] = useState("")
 
   const userInfo = {username, password}
 
@@ -29,15 +32,18 @@ const LoginPage = () => {
       setUserName("")
       setPassword("")
       setLoading(false)
-      setError("")
+      get_username()
+      setIsAuthenticated(true)
+      // setError("")
 
-      const from = location.state.from.pathname || "/";
-      navigate(from, {replace:true})
+     
+      const from = location?.state?.from.pathname || "/";
+      navigate(from, { replace:true });
     })
     .catch(err =>{
       console.log(err.message)
       setLoading(false)
-      setError(err.message)
+      // setError(err.message)
     })
   }
 

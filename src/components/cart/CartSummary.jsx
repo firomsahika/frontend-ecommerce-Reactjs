@@ -1,10 +1,22 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const CartSummary = ({cartTotal, tax}) => {
   const subTotal = cartTotal.toFixed(2)
   const cartTax = tax.toFixed(2)
   const total = (cartTotal + tax).toFixed(2)
+
+  const navigate = useNavigate()
+
+  const handleCheckout = () =>{
+    const token = localStorage.getItem("access")
+
+    if (!token){
+      navigate("/login", {state: {from: "/checkout"}})
+    }else{
+      navigate("/checkout")
+    }
+  }
 
   return (
     <div className="flex flex-col gap-y-10 border p-2 rounded-md">
@@ -26,11 +38,13 @@ const CartSummary = ({cartTotal, tax}) => {
         </div>
       </div>
       <div>
-       <Link to="/checkout">
-         <button className="bg-slate-800 rounded-md px-4 py-2 w-full text-white text-sm text-center">
+       
+         <button
+         onClick={handleCheckout}
+          className="bg-slate-800 rounded-md px-4 py-2 w-full text-white text-sm text-center">
           Proceed to Checkout
          </button>
-       </Link>
+       
       </div>
     </div>
   );

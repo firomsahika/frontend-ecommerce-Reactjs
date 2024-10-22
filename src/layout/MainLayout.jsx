@@ -11,7 +11,7 @@ const MainLayout = ({numCartItems}) =>{
         <main className="flex flex-col min-h-screen">
           <NavBar numCartItems={numCartItems}/>
           <ToastContainer />
-         <div className="flex-grow">
+         <div className="flex-grow pt-16">
          <Outlet />
          </div>
           <Footer />
