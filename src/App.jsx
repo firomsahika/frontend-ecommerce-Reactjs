@@ -14,6 +14,7 @@ import LoginPage from './components/user/LoginPage';
 import ProtectedRoute from './components/ui/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import UserProfilePage from './components/user/UserProfilePage';
+import RegistrationPage from './components/user/RegistrationPage';
 
 
 const App = () =>{
@@ -49,6 +50,7 @@ const App = () =>{
               </ProtectedRoute>
               }/>
             <Route path='login' element={<LoginPage />}/>
+            <Route path='register' element={<RegistrationPage />}/>
             <Route path='profile' element={<UserProfilePage />} />
 
             
