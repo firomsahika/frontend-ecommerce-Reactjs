@@ -1,20 +1,23 @@
 import api from "@/api";
 import { AuthContext } from "@/context/AuthContext";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationPage = () => {
   const [username, setUserName] = useState("");
-  const [firstName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   
-  const user_info = {username,firstName,phone,lastName,email,password,confirmPassword,}
+  const user_info = {username,first_name,phone,last_name,email,password,confirm_password}
   
   const {setIsAuthenticated} = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -22,12 +25,18 @@ const RegistrationPage = () => {
 
     try {
         setIsAuthenticated(true)
-        const res = await api.post("user_info/", user_info)
+        const res = await api.post("register/", user_info)
         console.log(res.data)
+        setLoading(false)
+
+
+        navigate("/login")
+
 
         
     } catch (err) {
         console.log(err.message)
+        setLoading(false)
     }
     
   }
@@ -46,7 +55,7 @@ const RegistrationPage = () => {
               <input
                 type="text"
                 id="firstName"
-                value={firstName}
+                value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
                 placeholder="First name"
@@ -58,7 +67,7 @@ const RegistrationPage = () => {
               <input
                 type="text"
                 id="lastName"
-                value={lastName}
+                value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
                 placeholder="Last name"
@@ -128,7 +137,7 @@ const RegistrationPage = () => {
               <input
                 type="password"
                 id="confirmPassword"
-                value={confirmPassword}
+                value={confirm_password}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring focus:ring-blue-200"
                 placeholder="Confirm password"

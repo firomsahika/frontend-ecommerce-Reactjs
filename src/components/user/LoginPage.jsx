@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => { 
   
-  const {setIsAuthenticated, get_username} = useContext(AuthContext) 
+  const {setIsAuthenticated, get_user_info} = useContext(AuthContext) 
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const LoginPage = () => {
       setUserName("")
       setPassword("")
       setLoading(false)
-      get_username()
+      get_user_info()
       setIsAuthenticated(true)
       // setError("")
 
@@ -55,6 +55,7 @@ const LoginPage = () => {
       <div className="bg-white shadow-md rounded-lg p-8 w-96">
         <h2 className="text-2xl font-bold text-center mb-6">Sign in to Shoppit</h2>
         <form onSubmit={handleSubmit}>
+        
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="username">Username</label>
             <input

@@ -21,9 +21,13 @@ const NavBar = ({ numCartItems }) => {
       <div className="hidden md:flex items-center gap-4">
         <NavBarLink />
         <Link to="/cart" className="flex items-center gap-2 relative">
-          <FaCartShopping size={30} className="text-yellow-400" />
+          <span className="text-xs text-slate-600 pt-2 items-center flex  flex-col justify-center ">
+          <FaCartShopping size={34} className="text-green-400" />
+           Cart
+          </span>
+
           {numCartItems > 0 && (
-            <span className="absolute left-4 bottom-4 font-semibold flex items-center justify-center bg-yellow-400 rounded-full h-6 w-6">
+            <span className="absolute left-4 bottom-8 font-semibold flex items-center justify-center bg-yellow-400 rounded-full h-6 w-6">
               {numCartItems}
             </span>
           )}
