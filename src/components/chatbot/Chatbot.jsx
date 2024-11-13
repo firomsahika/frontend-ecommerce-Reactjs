@@ -10,10 +10,12 @@ const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false); // State to control the visibility of the chat window
 
   const sendMessage = async () => {
-    const res = await api.post('/api/chatbot/', { query: userInput });
+    const res = await api.post('api/chatbot/', { query: userInput });
     setResponses([...responses, { user: userInput, bot: res.data.response }]);
     setUserInput('');
-};
+}
+
+
   return (
     <div className="fixed bottom-5 right-5 z-50">
       {/* Chat Toggle Button */}
@@ -45,7 +47,7 @@ const Chatbot = () => {
             />
             <button
               onClick={sendMessage}
-              className="bg-green-400 text-white p-2 rounded-r-lg flex items-center hover:bg-blue-600 transition duration-200"
+              className="bg-yellow-400 text-black p-2 rounded-r-lg flex items-center  transition duration-200"
             >
               <FaPaperPlane className="text-lg" />
             </button>

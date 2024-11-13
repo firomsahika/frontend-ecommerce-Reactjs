@@ -6,10 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import {Outlet} from 'react-router-dom'
 
-const MainLayout = ({numCartItems}) =>{
+const MainLayout = ({numCartItems,setSelectedCategory,selectedCategory, categories }) =>{
     return(
         <main className="flex flex-col min-h-screen font-poppins">
-          <NavBar numCartItems={numCartItems}/>
+          <NavBar
+          numCartItems={numCartItems}
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}  // Pass the selectedCategory prop here
+          categories={categories}/>
           <ToastContainer />
          <div className="flex-grow font-poppins">
          <Outlet />

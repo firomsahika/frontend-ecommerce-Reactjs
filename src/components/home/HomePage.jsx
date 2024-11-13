@@ -6,9 +6,7 @@ import PlaceHolderContainer from "../ui/PlaceHolderContainer";
 import { randomValue } from "../../GenerateCartCode";
 import SideBar from "../ui/SideBar";
 
-
-
-const HomePage = ({setNumCartItems}) => {
+const HomePage = ({ setNumCartItems, selectedCategory,setSelectedCategory }) => {
   const categories = [
     { id: 1, category: "Asus" },
     { id: 2, category: "Dell" },
@@ -18,10 +16,9 @@ const HomePage = ({setNumCartItems}) => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRam, setSelectedRam] = useState("");
   const [selectedName, setSelectedName] = useState("");
- 
+
   useEffect(() => {
     setLoading(true);
     const fetchProducts = async () => {
@@ -57,9 +54,9 @@ const HomePage = ({setNumCartItems}) => {
     setSelectedName(name);
   };
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
+  // const handleCategoryClick = (category) => {
+  //   setSelectedCategory(category);
+  // };
 
   const handleRamChange = (label) => {
     setSelectedRam(label);
@@ -71,15 +68,11 @@ const HomePage = ({setNumCartItems}) => {
     setSelectedName("");
   };
 
- 
-
   return (
     <>
-      <Header 
-      />
+      <Header />
       <div className="flex items-start justify-center mx-10 gap-10 my-28">
         {/* <SideBar
-          products={products}
           categories={categories}
           handleCategoryClick={handleCategoryClick}
           selectedCategory={selectedCategory}
@@ -87,7 +80,11 @@ const HomePage = ({setNumCartItems}) => {
           selectedRam={selectedRam}
           resetFilters={resetFilters}
         /> */}
-        {loading ? <PlaceHolderContainer /> : <CardContainer setNumCartItems={setNumCartItems} resetFilters={resetFilters} products={products} />}
+        {loading ? (
+          <PlaceHolderContainer />
+        ) : (
+          <CardContainer setNumCartItems={setNumCartItems} resetFilters={resetFilters} products={products} />
+        )}
       </div>
     </>
   );

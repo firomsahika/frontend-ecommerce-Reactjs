@@ -41,6 +41,7 @@ const Sidebar = ({ categories,handleRamChange,resetFilters, selectedRam, handleC
                     type="checkbox"
                     className="mr-2"
                     checked={selectedCategory === cat.category}
+                    
                     onChange={() => handleCategoryClick(cat.category)}
                   />
                   {cat.category}

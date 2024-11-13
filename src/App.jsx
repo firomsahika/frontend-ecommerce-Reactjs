@@ -19,31 +19,57 @@ import PaymentStatusPage from './components/payment/PaymentStatusPage';
 
 
 const App = () =>{
+  const categories = [
+    { id: 1, category: "Headset" },
+    { id: 2, category: "Watch" },
+    { id: 3, category: "Mobile" },
+    { id: 4, category: "Laptop" },
+    { id: 5, category: "Speaker" },
+  ];
+
   const [numCartItems, setNumCartItems] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const cart_code = localStorage.getItem("cart_code")
 
- 
+
+
+ useEffect(function(){
+  api.get(`product_category/${selectedCategory}`)
+  .then(res =>{
+    console.log(res.data)
+    setSelectedCategory(res.data.category)
+  })
+  .catch(err =>{
+    console.log(err.message)
+  })
+ },[])
 
   useEffect(function(){
     if(cart_code){
       api.get(`get_cart_stat?cart_code=${cart_code}`)
       .then(res =>{
         console.log(res.data)
-        setNumCartItems(res.data.num_of_items)
+      setNumCartItems(res.data.numCartItems)
       })
       .catch(err =>{
         console.log(err.message)
       })
     }
-  },[])
+  },[cart_code])
 
 
   return (
     <AuthProvider>
      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainLayout numCartItems={numCartItems} />}>
-            <Route index element={<HomePage setNumCartItems={setNumCartItems}/>}></Route>
+          <Route path="/" element={<MainLayout
+           numCartItems={numCartItems}
+           categories={categories}
+           setSelectedCategory={setSelectedCategory}
+           selectedCategory={selectedCategory}
+            />}>
+            <Route index element={<HomePage selectedCategory={selectedCategory}
+           setSelectedCategory={setSelectedCategory} setNumCartItems={setNumCartItems}/>}></Route>
             <Route path="products/:slug" element={<ProductPage setNumCartItems={setNumCartItems}/>}></Route>
             <Route path="cart" element={<CartPage setNumCartItems={setNumCartItems}/>}></Route >
             <Route path="*" element={<NotFoundPage />}></Route>

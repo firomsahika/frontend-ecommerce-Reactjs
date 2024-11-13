@@ -10,13 +10,13 @@ import { BsTelephoneInbound } from "react-icons/bs";
 import api from "@/api";
 
 
-const NavBar = ({ numCartItems }) => {
+const NavBar = ({ numCartItems, categories,selectedCategory, setSelectedCategory }) => {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRam, setSelectedRam] = useState("");
   const [selectedName, setSelectedName] = useState("");
+ 
  
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const NavBar = ({ numCartItems }) => {
     };
 
     fetchProducts();
-  }, [selectedCategory, selectedRam, selectedName]);
+  }, [selectedCategory, numCartItems, selectedRam, selectedName,categories]);
 
   useEffect(() => {
     if (!localStorage.getItem("cart_code")) {
@@ -55,12 +55,10 @@ const NavBar = ({ numCartItems }) => {
   };
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category); // Pass the selected category to the parent component
   };
 
-  const handleRamChange = (label) => {
-    setSelectedRam(label);
-  };
+ 
 
   const resetFilters = () => {
     setSelectedCategory("");
@@ -131,7 +129,11 @@ const NavBar = ({ numCartItems }) => {
       <div className=" w-full flex items-center  relative justify-between bg-[#fedc19] p-3 mt-4 px-5">
         <div className="md:px-4 sm:px-4  flex items-center justify-center">
            <li className="bg-black font-bold left-14 text-white px-4 py-4 h-full absolute flex items-center justify-center ">
-              <DropDown />
+              <DropDown 
+             categories={categories} 
+             handleCategoryClick={handleCategoryClick} 
+             selectedCategory={selectedCategory}
+             />
             </li>
           <ul className="flex left-80 absolute gap-10 pl-20">
             
@@ -139,8 +141,6 @@ const NavBar = ({ numCartItems }) => {
               <li>About</li>
               <li>Contact</li>
              
-          
-            
           </ul>
         </div>
         <div className="flex gap-x-2 items-center justify-center">
