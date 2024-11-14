@@ -10,10 +10,16 @@ const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false); // State to control the visibility of the chat window
 
   const sendMessage = async () => {
-    const res = await api.post('api/chatbot/', { query: userInput });
-    setResponses([...responses, { user: userInput, bot: res.data.response }]);
-    setUserInput('');
-}
+    try {
+      const res = await api.post("/api/chatbot/", { query: userInput, slug: "your-product-slug" });
+      setResponses([...responses, { user: userInput, bot: res.data.response }]);
+      setUserInput('');
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setResponses([...responses, { user: userInput, bot: "There was an error. Please try again later." }]);
+    }
+  };
+  
 
 
   return (
